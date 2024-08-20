@@ -9,3 +9,5 @@ export const connectDb = async () => {
     throw new Error("Unable to connect to DB");
   }
 };
+
+export * from "./user.schema";

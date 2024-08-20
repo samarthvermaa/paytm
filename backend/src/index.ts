@@ -1,7 +1,6 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import { connectDb } from "./db";
-import { userModel } from "./db/user.schema";
 dotenv.config();
 
 connectDb()
