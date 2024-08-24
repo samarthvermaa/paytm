@@ -6,22 +6,23 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       lowercase: true,
-      required: true,
+      required: [true, "Email is required"],
       trim: true,
     },
     firstName: {
       type: String,
-      required: true,
+      required: [true, "First name is required"],
       trim: true,
     },
     lastName: {
       type: String,
-      required: true,
+      required: [true, "Last name is required"],
       trim: true,
     },
     password: {
       type: String,
       required: [true, "Password is required"],
+      minLength: [6, "Password should be 6 chars"],
     },
   },
   { timestamps: true }
