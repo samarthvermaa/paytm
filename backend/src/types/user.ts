@@ -27,3 +27,19 @@ export const User = z.object({
 });
 
 export type TUser = z.infer<typeof User>;
+
+export const UserLogin = z.object({
+  email: z
+    .string({
+      required_error: "email is required",
+      invalid_type_error: "email should be of type string",
+    })
+    .email("Please provide a valid email."),
+
+  password: z.string({
+    required_error: "password is required",
+    invalid_type_error: "password should be of type string",
+  }),
+});
+
+export type TUserLogin = z.infer<typeof UserLogin>;

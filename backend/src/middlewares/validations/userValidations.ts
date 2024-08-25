@@ -1,17 +1,18 @@
 import { z } from "zod";
-import { TUser, User } from "../../types";
 import { NextFunction, Request, Response } from "express";
-import { userModel } from "../../db";
 import { checkUserAlreadyExits } from "../../services";
+import { TUser, TUserLogin } from "../../types";
+import { compareHash } from "../../utils";
 
-export const validateUserData = (
+export const validateUserData = <validationType>(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
+  validationRule: any
 ) => {
   try {
-    const userData: TUser = req.body;
-    const validate = User.safeParse(userData);
+    const userData: validationType = req.body;
+    const validate = validationRule.safeParse(userData);
     if (validate.success) {
       next();
     } else {
@@ -43,3 +44,51 @@ export const checkUserExits = async (
     throw error;
   }
 };
+
+export const verifyUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const userData: TUserLogin = req.body;
+  const { email, password } = userData;
+  try {
+    const user = await checkUserAlreadyExits(email);
+    if (user) {
+      const result = await compareHash(password, user.password);
+      if (result) {
+        next();
+      } else {
+        return res.status(401).send({
+          error: 401,
+          message: "Invalid credentials",
+        });
+      }
+    } else {
+      return res.status(401).send({
+        error: 401,
+        message: "Invalid credentials",
+      });
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+// export const validateUserDataForLogin = (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   try {
+//     const userData: TUserLogin = req.body;
+//     const validate = User.safeParse(userData);
+//     if (validate.success) {
+//       next();
+//     } else {
+//       throw validate.error.format();
+//     }
+//   } catch (error) {
+//     return res.status(400).json({ error: 400, message: error });
+//   }
+// };
