@@ -1,4 +1,3 @@
-import { z } from "zod";
 import { NextFunction, Request, Response } from "express";
 import { checkUserAlreadyExits } from "../../services";
 import { TUser, TUserLogin } from "../../types";
@@ -74,21 +73,3 @@ export const verifyUser = async (
     throw error;
   }
 };
-
-// export const validateUserDataForLogin = (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   try {
-//     const userData: TUserLogin = req.body;
-//     const validate = User.safeParse(userData);
-//     if (validate.success) {
-//       next();
-//     } else {
-//       throw validate.error.format();
-//     }
-//   } catch (error) {
-//     return res.status(400).json({ error: 400, message: error });
-//   }
-// };
