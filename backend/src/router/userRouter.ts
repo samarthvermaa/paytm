@@ -1,11 +1,19 @@
 import express, { NextFunction, Request, Response } from "express";
-import { loginUser, registerUser } from "../controllers";
+import { loginUser, registerUser, updateUserDetails } from "../controllers";
 import {
   checkUserExits,
   validateUserData,
   verifyUser,
 } from "../middlewares/validations";
-import { TUser, TUserLogin, User, UserLogin } from "../types";
+import {
+  TUpdateUser,
+  TUser,
+  TUserLogin,
+  UpdateUser,
+  User,
+  UserLogin,
+} from "../types";
+import { authenticateUser } from "../middlewares/authentication";
 const userRouter = express.Router();
 
 const timeLog = (req: Request, res: Response, next: NextFunction) => {
@@ -31,6 +39,14 @@ userRouter.route("/login").post(
   },
   verifyUser,
   loginUser
+);
+
+userRouter.route("/").patch(
+  (req, res, next) => {
+    validateUserData<TUpdateUser>(req, res, next, UpdateUser);
+  },
+  authenticateUser,
+  updateUserDetails
 );
 
 export { userRouter };

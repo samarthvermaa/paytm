@@ -43,3 +43,27 @@ export const UserLogin = z.object({
 });
 
 export type TUserLogin = z.infer<typeof UserLogin>;
+
+export const UpdateUser = z.object({
+  firstName: z
+    .string({
+      invalid_type_error: "firstName should be of type string",
+    })
+    .min(1, "First name can not be empty")
+    .optional(),
+
+  lastName: z
+    .string({
+      invalid_type_error: "lastName should be of type string",
+    })
+    .min(1, "Last name can not be empty")
+    .optional(),
+  password: z
+    .string({
+      invalid_type_error: "password should be of type string",
+    })
+    .min(6, "Password should be atleast 6 chars long")
+    .optional(),
+});
+
+export type TUpdateUser = z.infer<typeof UpdateUser>;

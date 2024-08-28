@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addUser, generateUserToken } from "../services";
+import { addUser, generateUserToken, updateUser } from "../services";
 
 export const registerUser = async (req: Request, res: Response) => {
   const { body } = req;
@@ -18,4 +18,9 @@ export const home = (req: Request, res: Response) => {
     .send(
       "<html><head><title>Home</title></head><body>This is my home page</body></html>"
     );
+};
+
+export const updateUserDetails = async (req: Request, res: Response) => {
+  const user = await updateUser(req.body);
+  return res.status(200).send({ user });
 };
