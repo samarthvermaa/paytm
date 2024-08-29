@@ -17,14 +17,6 @@ export const loginUser = async (req: Request, res: Response) => {
   return res.status(200).send({ token });
 };
 
-export const home = (req: Request, res: Response) => {
-  return res
-    .status(200)
-    .send(
-      "<html><head><title>Home</title></head><body>This is my home page</body></html>"
-    );
-};
-
 export const updateUserDetails = async (req: Request, res: Response) => {
   const user = await updateUser(req.body);
   return res.status(200).send({ user });

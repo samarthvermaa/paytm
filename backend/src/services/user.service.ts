@@ -4,6 +4,7 @@ import {
   saveUser,
   modifyUser,
   getAllUsers,
+  addBankAccount,
 } from "../repositories";
 import { TUser } from "../types";
 import { createHash } from "../utils";
@@ -19,7 +20,9 @@ export const checkUserAlreadyExits = async (email: string): Promise<any> => {
 
 export const addUser = async (user: TUser) => {
   try {
-    return await saveUser(user);
+    const createdUser = await saveUser(user);
+    await addBankAccount(createdUser._id);
+    return createdUser;
   } catch (error) {
     throw error;
   }

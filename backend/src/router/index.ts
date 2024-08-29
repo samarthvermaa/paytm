@@ -1,2 +1,2 @@
 export * from "./userRouter";
-export * from "./dashboard";
+export * from "./accountRouter";
