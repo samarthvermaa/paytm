@@ -1,5 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
-import { loginUser, registerUser, updateUserDetails } from "../controllers";
+import {
+  loginUser,
+  registerUser,
+  updateUserDetails,
+  getUsers,
+} from "../controllers";
 import {
   checkUserExits,
   validateUserData,
@@ -14,6 +19,7 @@ import {
   UserLogin,
 } from "../types";
 import { authenticateUser } from "../middlewares/authentication";
+import { errorHandler } from "../middlewares/errorHandeling";
 const userRouter = express.Router();
 
 const timeLog = (req: Request, res: Response, next: NextFunction) => {
@@ -48,5 +54,7 @@ userRouter.route("/").patch(
   authenticateUser,
   updateUserDetails
 );
+
+userRouter.route("/bulk").get(authenticateUser, getUsers, errorHandler);
 
 export { userRouter };

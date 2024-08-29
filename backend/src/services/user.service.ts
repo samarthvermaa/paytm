@@ -1,5 +1,10 @@
 import { JWT_SECRET } from "../config";
-import { checkUserExits, saveUser, modifyUser } from "../repositories";
+import {
+  checkUserExits,
+  saveUser,
+  modifyUser,
+  getAllUsers,
+} from "../repositories";
 import { TUser } from "../types";
 import { createHash } from "../utils";
 import jwt from "jsonwebtoken";
@@ -33,4 +38,12 @@ export const updateUser = async (requestData: any) => {
       throw error;
     }
   }
+};
+
+export const getBulkUsers = async (filterData: any) => {
+  const query = filterData.filter || undefined;
+  if (!query) {
+    throw new Error("INVALID-BODY");
+  }
+  return await getAllUsers(query);
 };
