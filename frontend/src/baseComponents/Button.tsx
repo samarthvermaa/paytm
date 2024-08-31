@@ -1,4 +1,6 @@
-const Button = ({ children, onClick }: any) => {
+import { IButton } from "../models/baseComponents/button";
+
+const Button = ({ children, onClick }: IButton) => {
   return (
     <button
       type="button"
