@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../baseComponents/Button";
 
-const SignUp = () => {
+export const SignUp = () => {
   return (
     <>
       <div className="flex flex-col items-center p-2 ">
@@ -41,5 +41,3 @@ const SignUp = () => {
     </>
   );
 };
-
-export default SignUp;
