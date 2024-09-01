@@ -40,13 +40,15 @@ export const modifyUser = async (email: string, requestData: any) => {
   return modifiedUser;
 };
 
-export const getAllUsers = async (query: string) => {
-  const users = await userModel.find({
-    $or: [
-      { firstName: new RegExp(".*" + query + ".*") },
-      { lastName: new RegExp(".*" + query + ".*") },
-    ],
-  });
+export const getAllUsers = async (query?: string) => {
+  const users = query
+    ? await userModel.find({
+        $or: [
+          { firstName: new RegExp(".*" + query + ".*") },
+          { lastName: new RegExp(".*" + query + ".*") },
+        ],
+      })
+    : await userModel.find();
   return users.map((user) => ({
     email: user.email,
     firstName: user.firstName,

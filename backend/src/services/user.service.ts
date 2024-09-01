@@ -46,7 +46,7 @@ export const updateUser = async (requestData: any) => {
 export const getBulkUsers = async (filterData: any) => {
   const query = filterData.filter || undefined;
   if (!query) {
-    throw new Error("INVALID-BODY");
+    return getAllUsers();
   }
   return await getAllUsers(query);
 };

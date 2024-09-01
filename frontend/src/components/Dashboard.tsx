@@ -1,8 +1,11 @@
+import { useBalance, useLocalStorage, useUsers } from "../hooks";
 import { Users } from "./Users";
 
 export const Dashboard = () => {
-  const balance = "$50000";
-  return (
+  const [token] = useLocalStorage("token");
+  const balance = useBalance();
+  const users = useUsers();
+  return token ? (
     <>
       <div className="flex flex-col p-5">
         <div className="flex flex-1 py-2 justify-between">
@@ -18,12 +21,10 @@ export const Dashboard = () => {
         <div className="py-2">
           <input type="text" placeholder="Search User..." />
         </div>
-        <Users
-          userDetails={[
-            { _id: "432423", firstName: "Samarth", lastName: "Verma" },
-          ]}
-        />
+        <Users userDetails={users} />
       </div>
     </>
+  ) : (
+    <p>Authorized Access. Not allowed to access</p>
   );
 };

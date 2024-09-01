@@ -32,7 +32,11 @@ export const getAllUsers = async (
   query: string,
   token: string
 ): Promise<AxiosResponse<any>> => {
-  return await axios.get(`${apiBaseUrl}/v1/user/bulk?filter=${query}`, {
+  let url = `${apiBaseUrl}/v1/user/bulk`;
+  if (query) {
+    url += `?filter=${query}`;
+  }
+  return await axios.get(url, {
     headers: { Authorization: token },
   });
 };
