@@ -9,7 +9,7 @@ export const Users = ({ userDetails }: any) => {
         userDetails.map((user: any, index: number) => (
           <User
             key={user._id}
-            sno={index}
+            sno={index + 1}
             fname={user.firstName}
             lname={user.lastName}
           />
