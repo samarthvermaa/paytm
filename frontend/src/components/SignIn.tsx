@@ -63,9 +63,11 @@ export const SignIn = () => {
             onChange={updateUserState}
             value={user.password}
           />
-          <Button type="submit" onClick={loginUserData}>
-            Sign In
-          </Button>
+          <div className="flex flex-col justify-center items-center p-4">
+            <Button type="submit" onClick={loginUserData}>
+              Sign In
+            </Button>
+          </div>
         </form>
         <p>
           Do not have an Account?{" "}

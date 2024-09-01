@@ -1,19 +1,29 @@
+import { useNavigate } from "react-router-dom";
+import Button from "../baseComponents/Button";
 import { useBalance, useLocalStorage, useUsers } from "../hooks";
 import { Users } from "./Users";
 
 export const Dashboard = () => {
-  const [token] = useLocalStorage("token");
-  const balance = useBalance();
+  const [token, setToken] = useLocalStorage("token");
+  const currentUser = useBalance();
   const users = useUsers();
+  const navigate = useNavigate();
   return token ? (
     <>
       <div className="flex flex-col p-5">
         <div className="flex flex-1 py-2 justify-between">
           <p>Payment App</p>
-          <p>Hello, User</p>
+          <Button
+            onClick={() => {
+              setToken("");
+              navigate("/signin");
+            }}
+          >
+            Hello, {currentUser?.firstName.toUpperCase()}
+          </Button>
         </div>
         <div className="py-2">
-          <p>Your Balance: {balance}</p>
+          <p>Your Balance: {currentUser?.balance}</p>
         </div>
         <div className="py-2">
           <p>Users</p>

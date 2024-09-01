@@ -21,7 +21,7 @@ export const useLocalStorage = (key: string, defaultValue: any = "") => {
   return [localStorageValue, setLocalStorage];
 };
 
-export const useBalance = () => {
+export const useBalance = (): any => {
   const [balance, setBalance] = useState();
   const [token] = useLocalStorage("token");
   useEffect(() => {
@@ -29,7 +29,7 @@ export const useBalance = () => {
       try {
         const { data, status } = await getUserBalance(token);
         if (status === 200) {
-          setBalance(data.balance);
+          setBalance(data);
         }
       } catch (error) {
         return error;
