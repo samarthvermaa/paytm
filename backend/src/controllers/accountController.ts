@@ -8,7 +8,11 @@ export const getBalance = async (
   try {
     const email = req.body.email;
     const data = await getUserBalance(email);
-    return res.status(200).send(data);
+    if (data) {
+      return res.status(200).send(data[0]);
+    } else {
+      return res.status(404).send("Not found");
+    }
   } catch (error) {
     next(error);
   }
