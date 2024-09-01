@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { apiBaseUrl } from "../constants";
 
 export const signUp = async (
@@ -17,7 +17,10 @@ export const signUp = async (
   return await axios.post(`${apiBaseUrl}/v1/user/signup`, user);
 };
 
-export const signIn = async (email: string, password: string) => {
+export const signIn = async (
+  email: string,
+  password: string
+): Promise<AxiosResponse<any>> => {
   const user = {
     email,
     password,
@@ -25,7 +28,10 @@ export const signIn = async (email: string, password: string) => {
   return await axios.post(`${apiBaseUrl}/v1/user/login`, user);
 };
 
-export const getAllUsers = async (query: string, token: string) => {
+export const getAllUsers = async (
+  query: string,
+  token: string
+): Promise<AxiosResponse<any>> => {
   return await axios.get(`${apiBaseUrl}/v1/user/bulk?filter=${query}`, {
     headers: { Authorization: token },
   });
@@ -36,7 +42,7 @@ export const updateUser = async (
   password?: string,
   firstName?: string,
   lastName?: string
-) => {
+): Promise<AxiosResponse<any>> => {
   const updatedUser: any = {};
   if (password) {
     updatedUser.password = password;
