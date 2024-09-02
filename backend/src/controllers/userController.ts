@@ -4,6 +4,7 @@ import {
   generateUserToken,
   updateUser,
   getBulkUsers,
+  getUserWithId,
 } from "../services";
 
 export const registerUser = async (req: Request, res: Response) => {
@@ -30,6 +31,20 @@ export const getUsers = async (
   try {
     const queryString = req.query;
     const result = await getBulkUsers(queryString);
+    return res.status(200).send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getUserById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const result = await getUserWithId(id);
     return res.status(200).send(result);
   } catch (error) {
     next(error);

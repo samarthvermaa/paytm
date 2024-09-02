@@ -4,6 +4,7 @@ import {
   registerUser,
   updateUserDetails,
   getUsers,
+  getUserById,
 } from "../controllers";
 import {
   checkUserExits,
@@ -56,5 +57,7 @@ userRouter.route("/").patch(
 );
 
 userRouter.route("/bulk").get(authenticateUser, getUsers, errorHandler);
+
+userRouter.route("/:id").get(getUserById, errorHandler);
 
 export { userRouter };

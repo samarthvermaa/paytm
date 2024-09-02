@@ -5,6 +5,7 @@ import {
   modifyUser,
   getAllUsers,
   addBankAccount,
+  checkUserExitsById,
 } from "../repositories";
 import { TUser } from "../types";
 import { createHash } from "../utils";
@@ -49,4 +50,8 @@ export const getBulkUsers = async (filterData: any) => {
     return getAllUsers();
   }
   return await getAllUsers(query);
+};
+
+export const getUserWithId = async (userID: string) => {
+  return await checkUserExitsById(userID);
 };

@@ -1,15 +1,24 @@
 import { ClientSession } from "mongoose";
 import { userModel, accountsModel } from "../db";
+import { ObjectId } from "bson";
 
 export const getBalanceForUser = async (
-  email: string,
+  email?: string,
+  _id?: string,
   session?: ClientSession
 ) => {
+  const andClause = [];
+  if (email) {
+    andClause.push({ email: email });
+  }
+  if (_id) {
+    andClause.push({ _id: new ObjectId(_id) });
+  }
   return await userModel.aggregate(
     [
       {
         $match: {
-          email: email,
+          $and: andClause,
         },
       },
       {

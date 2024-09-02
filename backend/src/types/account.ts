@@ -4,7 +4,7 @@ export const TransferAmount = z.object({
     required_error: "to is required",
     invalid_type_error: "to should be of type string",
   }),
-  amount: z.number({
+  amount: z.string({
     required_error: "amount is required",
     invalid_type_error: "amount should be of type string",
   }),

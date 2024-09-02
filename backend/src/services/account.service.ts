@@ -17,7 +17,7 @@ export const transferUserBalance = async (
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const fromAccount = await getBalanceForUser(fromEmail, session);
+    const fromAccount = await getBalanceForUser(fromEmail, "", session);
     if (
       !fromAccount ||
       !fromAccount[0]?.balance ||
@@ -29,7 +29,7 @@ export const transferUserBalance = async (
     if (!toAccountUser) {
       throw new Error("Invalid account");
     }
-    const toAccount = await getBalanceForUser(toAccountUser.email, session);
+    const toAccount = await getBalanceForUser(toAccountUser.email, "", session);
     if (!toAccount[0] || !toAccount[0]?.balance) {
       throw new Error("Invalid account");
     }
