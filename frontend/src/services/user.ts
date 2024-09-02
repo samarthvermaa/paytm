@@ -41,6 +41,11 @@ export const getAllUsers = async (
   });
 };
 
+export const geUserById = async (id: string): Promise<AxiosResponse<any>> => {
+  const url = `${apiBaseUrl}/v1/user/${id}`;
+  return await axios.get(url);
+};
+
 export const updateUser = async (
   token: string,
   password?: string,

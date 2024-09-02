@@ -2,11 +2,13 @@ import { useNavigate } from "react-router-dom";
 import Button from "../baseComponents/Button";
 import { useBalance, useLocalStorage, useUsers } from "../hooks";
 import { Users } from "./Users";
+import { useState } from "react";
 
 export const Dashboard = () => {
   const [token, setToken] = useLocalStorage("token");
   const currentUser = useBalance();
-  const users = useUsers();
+  const [search, setSearch] = useState("");
+  const users = useUsers(search);
   const navigate = useNavigate();
   return token ? (
     <>
@@ -29,7 +31,14 @@ export const Dashboard = () => {
           <p>Users</p>
         </div>
         <div className="py-2">
-          <input type="text" placeholder="Search User..." />
+          <input
+            type="text"
+            placeholder="Search User..."
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            value={search}
+          />
         </div>
         <Users userDetails={users} />
       </div>

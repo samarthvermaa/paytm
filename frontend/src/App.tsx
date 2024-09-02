@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home, SignUp, SignIn, Dashboard } from "./components";
 import {} from "./components";
+import { TransferMoney } from "./components/TransferMoney";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/send",
-    element: <div>send</div>,
+    element: <TransferMoney />,
   },
 ]);
 function App() {
